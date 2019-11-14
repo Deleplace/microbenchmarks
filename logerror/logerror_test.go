@@ -80,3 +80,21 @@ func BenchmarkWork5(b *testing.B) {
 		assert2(len(data) == 11, b, "Wrong length %d", len(data))
 	}
 }
+
+type asserter interface {
+	assert(condition bool, t testing.TB, pattern string, args ...interface{})
+}
+
+type voidAsserter struct{}
+
+func (voidAsserter) assert(condition bool, t testing.TB, pattern string, args ...interface{}) {
+}
+
+func BenchmarkWork6(b *testing.B) {
+	var a asserter = voidAsserter{}
+	assert2 = func(condition bool, t testing.TB, pattern string, args ...interface{}) {}
+	for i := 0; i < b.N; i++ {
+		doWork()
+		a.assert(len(data) == 11, b, "Wrong length %d", len(data))
+	}
+}
