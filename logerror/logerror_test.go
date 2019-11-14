@@ -59,3 +59,16 @@ func BenchmarkWork3(b *testing.B) {
 		assert(len(data) == 11, b, "Wrong length %d", len(data))
 	}
 }
+
+var assert2 = func(condition bool, t testing.TB, pattern string, args ...interface{}) {
+	if !condition {
+		t.Errorf(pattern, args...)
+	}
+}
+
+func BenchmarkWork4(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		assert2(len(data) == 11, b, "Wrong length %d", len(data))
+	}
+}
