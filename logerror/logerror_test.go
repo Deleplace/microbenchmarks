@@ -124,3 +124,59 @@ func BenchmarkWork9(b *testing.B) {
 		_ = len(data) == 11 || fail(b, "Wrong length %d", len(data))
 	}
 }
+
+var Debug = true
+
+func BenchmarkWork10(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		if Debug {
+			assert(len(data) == 11, b, "Wrong length %d", len(data))
+		}
+	}
+}
+
+var Debug2 = false
+
+func BenchmarkWork11(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		if Debug2 {
+			assert(len(data) == 11, b, "Wrong length %d", len(data))
+		}
+	}
+}
+
+const Debug3 = true
+
+func assert3(condition bool, t testing.TB, pattern string, args ...interface{}) {
+	if Debug3 {
+		if !condition {
+			t.Errorf(pattern, args...)
+		}
+	}
+}
+
+func BenchmarkWork12(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		assert3(len(data) == 11, b, "Wrong length %d", len(data))
+	}
+}
+
+const Debug4 = false
+
+func assert4(condition bool, t testing.TB, pattern string, args ...interface{}) {
+	if Debug4 {
+		if !condition {
+			t.Errorf(pattern, args...)
+		}
+	}
+}
+
+func BenchmarkWork13(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		assert4(len(data) == 11, b, "Wrong length %d", len(data))
+	}
+}
