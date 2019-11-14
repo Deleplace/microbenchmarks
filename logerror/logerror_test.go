@@ -117,3 +117,10 @@ func BenchmarkWork8(b *testing.B) {
 		// len(data) == 11 || fail(b, "Wrong length %d", len(data))
 	}
 }
+
+func BenchmarkWork9(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		_ = len(data) == 11 || fail(b, "Wrong length %d", len(data))
+	}
+}
