@@ -105,3 +105,15 @@ func _BenchmarkWork7(b *testing.B) {
 		// len(data) == 11 || b.Errorf("Wrong length %d", len(data))
 	}
 }
+
+func fail(t testing.TB, pattern string, args ...interface{}) bool {
+	t.Errorf(pattern, args...)
+	return false
+}
+
+func BenchmarkWork8(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		// len(data) == 11 || fail(b, "Wrong length %d", len(data))
+	}
+}
