@@ -98,3 +98,10 @@ func BenchmarkWork6(b *testing.B) {
 		a.assert(len(data) == 11, b, "Wrong length %d", len(data))
 	}
 }
+
+func _BenchmarkWork7(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		// len(data) == 11 || b.Errorf("Wrong length %d", len(data))
+	}
+}
