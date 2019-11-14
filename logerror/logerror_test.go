@@ -37,3 +37,12 @@ func BenchmarkWork1(b *testing.B) {
 		doWork()
 	}
 }
+
+func BenchmarkWork2(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		doWork()
+		if a := len(data); a != 11 {
+			b.Errorf("Wrong length %d", a)
+		}
+	}
+}
