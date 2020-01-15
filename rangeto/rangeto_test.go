@@ -8,7 +8,7 @@ func to(n int) []struct{} {
 
 func BenchmarkIterationClassic(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		var sum int
+		sum = 0
 		for i := 0; i < 1; i++ {
 			sum += i
 		}
@@ -26,7 +26,7 @@ func BenchmarkIterationClassic(b *testing.B) {
 
 func BenchmarkRangeTo(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		var sum int
+		sum = 0
 		for i := range to(1) {
 			sum += i
 		}
@@ -41,3 +41,5 @@ func BenchmarkRangeTo(b *testing.B) {
 		// }
 	}
 }
+
+var sum = 0
