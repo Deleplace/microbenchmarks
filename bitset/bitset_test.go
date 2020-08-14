@@ -9,6 +9,7 @@ var M = 100000
 
 func TestEquivalence(t *testing.T) {
 	sets := []Bitset{
+		NewBigInt(),
 		make(BitsetBool, M),
 		make(BitsetMap, M),
 		NewUint8(M),
