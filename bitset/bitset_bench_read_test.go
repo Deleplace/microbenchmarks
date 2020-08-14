@@ -42,7 +42,7 @@ func BenchmarkUint64IfcRead(b *testing.B) {
 }
 
 func BenchmarkWillfIfcRead(b *testing.B) {
-	bs := BitsetWillf{BitSet: *wb.New(uint(M))}
+	bs := &BitsetWillf{BitSet: *wb.New(uint(M))}
 	benchmarkRead(bs, b, M)
 }
 

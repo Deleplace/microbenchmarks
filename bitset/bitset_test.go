@@ -15,11 +15,14 @@ func TestEquivalence(t *testing.T) {
 		NewUint8(M),
 		NewUint64(M),
 		&BitsetBoolDyn{},
-		BitsetWillf{},
+		&BitsetWillf{},
 	}
 	for _, bs := range sets {
 		for j := 2; j < M; j += 13 {
 			bs.SetBit(j, true)
+		}
+		for j := 1; j < M; j += 5 {
+			bs.SetBit(j, false)
 		}
 	}
 	testEqual(t, sets...)
@@ -31,14 +34,18 @@ func testEqual(t testing.TB, sets ...Bitset) {
 	}
 	ref := sets[0]
 	for i, bs := range sets[1:] {
-		if bs.Len() != ref.Len() {
-			return
-		}
-		for j := 0; j < bs.Len(); j++ {
+		for j, n := 0, max(bs.Len(), ref.Len()); j < n; j++ {
 			if bs.GetBit(j) != ref.GetBit(j) {
 				t.Errorf("bitset %d differs at index %d", 1+i, j)
 				return
 			}
 		}
 	}
+}
+
+func max(a, b int) int {
+	if b > a {
+		return b
+	}
+	return a
 }

@@ -2,8 +2,6 @@ package bitset
 
 import (
 	"testing"
-
-	wb "github.com/willf/bitset"
 )
 
 func BenchmarkBigIntIfcWrite(b *testing.B) {
@@ -41,7 +39,7 @@ func BenchmarkUint64IfcWrite(b *testing.B) {
 	benchmarkWrite(bs, b, M)
 }
 func BenchmarkWillfWrite(b *testing.B) {
-	bs := BitsetWillf{BitSet: *wb.New(uint(M))}
+	bs := &BitsetWillf{}
 	benchmarkWrite(bs, b, M)
 }
 

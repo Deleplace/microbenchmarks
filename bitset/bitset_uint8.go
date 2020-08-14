@@ -8,17 +8,17 @@ func NewUint8(n int) BitsetUint8 {
 
 func (b BitsetUint8) GetBit(index int) bool {
 	pos := index / 8
-	j := index % 8
+	j := uint(index % 8)
 	return (b[pos] & (uint8(1) << j)) != 0
 }
 
 func (b BitsetUint8) SetBit(index int, value bool) {
 	pos := index / 8
-	j := index % 8
+	j := uint(index % 8)
 	if value {
 		b[pos] |= (uint8(1) << j)
 	} else {
-		b[pos] ^= (uint8(1) << j)
+		b[pos] &= ^(uint8(1) << j)
 	}
 }
 
