@@ -49,9 +49,18 @@ func BenchmarkWillfIfcRead(b *testing.B) {
 var Sinkb = false
 
 func benchmarkRead(bs Bitset, b *testing.B, n int) {
+	generateContents(bs, n)
+	b.ResetTimer()
+
 	for i := 0; i < b.N; i++ {
 		for j := 3; j < n; j += 6 {
 			Sinkb = bs.GetBit(j)
 		}
+	}
+}
+
+func generateContents(bs Bitset, limit int) {
+	for j := 1; j < limit; j += 7 {
+		bs.SetBit(j, true)
 	}
 }
