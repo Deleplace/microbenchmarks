@@ -38,7 +38,7 @@ func BenchmarkUint64IfcWrite(b *testing.B) {
 	bs := NewUint64(M)
 	benchmarkWrite(bs, b, M)
 }
-func BenchmarkWillfWrite(b *testing.B) {
+func BenchmarkWillfIfcWrite(b *testing.B) {
 	bs := &BitsetWillf{}
 	benchmarkWrite(bs, b, M)
 }
