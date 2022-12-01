@@ -26,7 +26,7 @@ func max4A(x []uint64) uint64 {
 	return max
 }
 
-// max4A computes the max out of 4 numbers
+// max4B computes the max out of 4 numbers
 func max4B(x []uint64) uint64 {
 	max := x[3]
 	for _, v := range x[0:3] {
