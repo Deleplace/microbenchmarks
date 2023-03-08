@@ -21,7 +21,7 @@ func BenchmarkStringBuilderWriteString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var sb strings.Builder
 		for i := 0; i < 10_000; i++ {
-			sb.Write([]byte(words[i%len(words)]))
+			sb.WriteString(words[i%len(words)])
 			sb.WriteByte(' ')
 		}
 		Sink = sb.String()
@@ -54,7 +54,7 @@ func BenchmarkBytesBufferWriteString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var buf bytes.Buffer
 		for i := 0; i < 10_000; i++ {
-			buf.Write([]byte(words[i%len(words)]))
+			buf.WriteString(words[i%len(words)])
 			buf.WriteByte(' ')
 		}
 		Sink = buf.String()
