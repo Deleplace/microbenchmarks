@@ -17,11 +17,22 @@ func BenchmarkStringConcat(b *testing.B) {
 	}
 }
 
-func BenchmarkStringBuilderWrite(b *testing.B) {
+func BenchmarkStringBuilderWriteString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var sb strings.Builder
 		for i := 0; i < 10_000; i++ {
 			sb.Write([]byte(words[i%len(words)]))
+			sb.WriteByte(' ')
+		}
+		Sink = sb.String()
+	}
+}
+
+func BenchmarkStringBuilderWriteBytes(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		var sb strings.Builder
+		for i := 0; i < 10_000; i++ {
+			sb.Write(wordsAsBytes[i%len(words)])
 			sb.WriteByte(' ')
 		}
 		Sink = sb.String()
@@ -39,11 +50,22 @@ func BenchmarkStringBuilderFprint(b *testing.B) {
 	}
 }
 
-func BenchmarkBytesBufferWrite(b *testing.B) {
+func BenchmarkBytesBufferWriteString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var buf bytes.Buffer
 		for i := 0; i < 10_000; i++ {
 			buf.Write([]byte(words[i%len(words)]))
+			buf.WriteByte(' ')
+		}
+		Sink = buf.String()
+	}
+}
+
+func BenchmarkBytesBufferWriteBytes(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		var buf bytes.Buffer
+		for i := 0; i < 10_000; i++ {
+			buf.Write(wordsAsBytes[i%len(words)])
 			buf.WriteByte(' ')
 		}
 		Sink = buf.String()
@@ -63,6 +85,14 @@ func BenchmarkBytesBufferFprint(b *testing.B) {
 
 var words = []string{
 	"Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit,", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua.",
+}
+
+var wordsAsBytes [][]byte
+
+func init() {
+	for _, w := range words {
+		wordsAsBytes = append(wordsAsBytes, []byte(w))
+	}
 }
 
 var Sink string
