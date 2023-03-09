@@ -83,6 +83,28 @@ func BenchmarkBytesBufferFprint(b *testing.B) {
 	}
 }
 
+func BenchmarkStringBuilderWriteStringSmall(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		var sb strings.Builder
+		for i := 0; i < 4; i++ {
+			sb.WriteString(words[i])
+			sb.WriteByte(' ')
+			Sink = sb.String()
+		}
+	}
+}
+
+func BenchmarkBytesBufferWriteStringSmall(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		var buf bytes.Buffer
+		for i := 0; i < 4; i++ {
+			buf.WriteString(words[i])
+			buf.WriteByte(' ')
+			Sink = buf.String()
+		}
+	}
+}
+
 var words = []string{
 	"Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit,", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua.",
 }
