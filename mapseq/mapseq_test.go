@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
+// This benchmark tests a potential performance penalty when using map
+// iterators
+
 // Size of list. Tune manually to produce interesting values.
-const (
-	M   = 100_000
-	max = 1e4
-)
+const M = 10_000
 
 // Exported global var, to make sure the compiler doesn't wipe away the computations
 var Sink int
@@ -89,6 +89,39 @@ func BenchmarkIterateValuesSeq(b *testing.B) {
 			if v == needle {
 				Sink++
 				break
+			}
+		}
+	}
+}
+
+// BenchmarkIterateKeysValues iterates over map keys and values, using the
+// traditional range over map style
+func BenchmarkIterateKeysValues(b *testing.B) {
+	r.Seed([32]byte{42})
+	m := randomizedMap()
+	b.ResetTimer()
+
+	for range b.N {
+		for k, v := range m {
+			if k == K(v) {
+				Sink++
+			}
+		}
+	}
+}
+
+// BenchmarkIterateKeysValuesSeq iterates over map keys and values, using the
+// new range style over an iter.Seq iterator returned by maps.All, introduced
+// in Go 1.23
+func BenchmarkIterateKeysValuesSeq(b *testing.B) {
+	r.Seed([32]byte{42})
+	m := randomizedMap()
+	b.ResetTimer()
+
+	for range b.N {
+		for k, v := range maps.All(m) {
+			if k == K(v) {
+				Sink++
 			}
 		}
 	}
