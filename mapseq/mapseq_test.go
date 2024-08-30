@@ -11,9 +11,7 @@ import (
 //
 // Iterators were introduced in Go 1.23
 //
-// Results on a MacBook M1 show a 18% penalty, which is an acceptable cost
-// for the flexibility of using iterators.
-// Ranging over the iterator is slightly slower, but same order of magnitude.
+// Results on a MacBook M1 show a 18% penalty.
 
 // Size of list. Tune manually to produce interesting values.
 const M = 10_000
@@ -117,7 +115,7 @@ func BenchmarkIterateKeysValues(b *testing.B) {
 }
 
 // BenchmarkIterateKeysValuesSeq iterates over map keys and values, using the
-// new range style over an iter.Seq iterator returned by maps.All, introduced
+// new range style over an iter.Seq2 iterator returned by maps.All, introduced
 // in Go 1.23
 func BenchmarkIterateKeysValuesSeq(b *testing.B) {
 	r.Seed([32]byte{42})
