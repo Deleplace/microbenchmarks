@@ -1,4 +1,4 @@
-package dedupe
+package mapseq
 
 import (
 	"maps"

@@ -1,4 +1,4 @@
-package dedupe
+package sliceseq
 
 import (
 	"math/rand/v2"
