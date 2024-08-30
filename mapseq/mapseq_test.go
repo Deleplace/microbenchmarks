@@ -7,7 +7,13 @@ import (
 )
 
 // This benchmark tests a potential performance penalty when using map
-// iterators
+// iterators, compared to a traditional range over the map keys/values.
+//
+// Iterators were introduced in Go 1.23
+//
+// Results on a MacBook M1 show a 18% penalty, which is an acceptable cost
+// for the flexibility of using iterators.
+// Ranging over the iterator is slightly slower, but same order of magnitude.
 
 // Size of list. Tune manually to produce interesting values.
 const M = 10_000
