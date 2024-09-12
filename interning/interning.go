@@ -56,6 +56,15 @@ func findBwords(book string) []unique.Handle[string] {
 				n++
 				word := book[a:i]
 				if word[0] == 'b' || word[0] == 'B' {
+					// In Go 1.23.0 and 1.23.1, unique.Make would retain a reference
+					// to the original substring being interned, which is part of a
+					// very large string, which would not be garbage collected.
+					//
+					// This unwanted behavior has been fixed in
+					// https://github.com/golang/go/issues/69370
+					//
+					// Now (after the fix), only small string cloned by unique.Make
+					// are retained in the interning pool.
 					handle := unique.Make(word)
 					Bwords = append(Bwords, handle)
 				}

@@ -57,6 +57,13 @@ func findBwords(book string) []unique.Handle[string] {
 				n++
 				word := book[a:i]
 				if word[0] == 'b' || word[0] == 'B' {
+					// In Go 1.23.0 and 1.23.1, unique.Make would retain a reference
+					// to the original string being interned.
+					// To prevent this unwanted behavior, we're explicitly cloning the
+					// substring, and then intern the clone.
+					// This workaround is no longer necessary, since
+					// https://github.com/golang/go/issues/69370 was fixed.
+
 					cloned := strings.Clone(word)
 					handle := unique.Make(cloned)
 					Bwords = append(Bwords, handle)
