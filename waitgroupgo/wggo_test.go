@@ -61,11 +61,8 @@ func searchA(hay []int, needle int) bool {
 		}()
 	}
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		lookup(hay)
-	}()
+	lookup(hay)
+
 	wg.Wait()
 	return found
 }
@@ -100,9 +97,8 @@ func searchB(hay []int, needle int) bool {
 		})
 	}
 
-	wg.Go(func() {
-		lookup(hay)
-	})
+	lookup(hay)
+
 	wg.Wait()
 
 	return found
@@ -244,11 +240,8 @@ func searchC(hay []int, needle int) bool {
 		}()
 	}
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		lookup(hay)
-	}()
+	lookup(hay)
+
 	wg.Wait()
 	return found
 }
@@ -281,9 +274,8 @@ func searchD(hay []int, needle int) bool {
 		})
 	}
 
-	wg.Go(func() {
-		lookup(hay)
-	})
+	lookup(hay)
+
 	wg.Wait()
 
 	return found
