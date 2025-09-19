@@ -68,7 +68,7 @@ func max4D(x []uint64) uint64 {
 }
 
 func BenchmarkA(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		sum := uint64(0)
 		for j := 0; j < len(data); j += 4 {
 			sum += max4A(data[j : j+4])
@@ -79,7 +79,7 @@ func BenchmarkA(b *testing.B) {
 }
 
 func BenchmarkB(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		sum := uint64(0)
 		for j := 0; j < len(data); j += 4 {
 			sum += max4B(data[j : j+4])
@@ -90,7 +90,7 @@ func BenchmarkB(b *testing.B) {
 }
 
 func BenchmarkC(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		sum := uint64(0)
 		for j := 0; j < len(data); j += 4 {
 			sum += max4C(data[j : j+4])
@@ -100,7 +100,7 @@ func BenchmarkC(b *testing.B) {
 }
 
 func BenchmarkD(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		sum := uint64(0)
 		for j := 0; j < len(data); j += 4 {
 			sum += max4D(data[j : j+4])
