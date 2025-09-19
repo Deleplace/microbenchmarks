@@ -37,6 +37,36 @@ func max4B(x []uint64) uint64 {
 	return max
 }
 
+// max4C computes the max out of 4 numbers
+func max4C(x []uint64) uint64 {
+	max := x[0]
+	if x[1] > max {
+		max = x[1]
+	}
+	if x[2] > max {
+		max = x[2]
+	}
+	if x[3] > max {
+		max = x[3]
+	}
+	return max
+}
+
+// max4D computes the max out of 4 numbers
+func max4D(x []uint64) uint64 {
+	max := x[3]
+	if x[0] > max {
+		max = x[0]
+	}
+	if x[1] > max {
+		max = x[1]
+	}
+	if x[2] > max {
+		max = x[2]
+	}
+	return max
+}
+
 func BenchmarkA(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		sum := uint64(0)
@@ -57,6 +87,26 @@ func BenchmarkB(b *testing.B) {
 		Sink = sum
 	}
 	// b.Log(Sink)
+}
+
+func BenchmarkC(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		sum := uint64(0)
+		for j := 0; j < len(data); j += 4 {
+			sum += max4C(data[j : j+4])
+		}
+		Sink = sum
+	}
+}
+
+func BenchmarkD(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		sum := uint64(0)
+		for j := 0; j < len(data); j += 4 {
+			sum += max4D(data[j : j+4])
+		}
+		Sink = sum
+	}
 }
 
 // Prevents optimizing things away
